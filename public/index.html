@@ -3,418 +3,167 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Gavel IQ — AI Distressed Asset Intelligence</title>
+<title>Gavel IQ — Parcel Detail Prototype</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-:root{
-  --bg:#05070a;
-  --panel:#0b1117;
-  --panel2:#101923;
-  --border:#1f2b38;
-  --text:#e6edf3;
-  --muted:#8fa0b5;
-  --accent:#ff8c00;
-  --green:#00c853;
-  --red:#ff5252;
-  --yellow:#ffca28;
-}
-
-*{ box-sizing:border-box; }
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'IBM Plex Sans',sans-serif;
-  letter-spacing:-0.01em;
-}
-
-.mono{ font-family:'IBM Plex Mono',monospace; }
-
-.panel{
-  background:linear-gradient(180deg,var(--panel),var(--panel2));
-  border:1px solid var(--border);
-}
-
-.metric{
-  font-size:clamp(24px,5vw,42px);
-  font-weight:700;
-  letter-spacing:-0.04em;
-  line-height:1;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  padding:4px 9px;
-  border-radius:999px;
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  white-space:nowrap;
-}
-
-input,select{
-  background:#081018;
-  border:1px solid var(--border);
-  color:var(--text);
-  min-height:44px;
-}
-
-th{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  font-weight:600;
-  color:#91a3b8;
-  white-space:nowrap;
-}
-
-td{ font-size:14px; vertical-align:top; }
-
-.table-row:hover{ background:#131c26; }
-
-.mobile-card{
-  background:linear-gradient(180deg,#0b1117,#101923);
-  border:1px solid var(--border);
-  border-radius:16px;
-}
-
-.kpi-label{
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:#7f91a8;
-}
-
-.kpi-value{
-  font-size:18px;
-  font-weight:700;
-}
-
-@media (max-width: 767px){
-  .desktop-table{ display:none; }
-  .desktop-actions{ display:none; }
-  .hero-title{ font-size:42px; line-height:.95; }
-  .mobile-sticky{
-    position:sticky;
-    top:0;
-    z-index:20;
-    background:rgba(5,7,10,.94);
-    backdrop-filter: blur(12px);
-    border-bottom:1px solid var(--border);
-    margin-left:-16px;
-    margin-right:-16px;
-    padding:12px 16px;
-  }
-}
-
-@media (min-width: 768px){
-  .mobile-cards{ display:none; }
-  .mobile-actions{ display:none; }
-}
+:root{--bg:#05070a;--panel:#0b1117;--panel2:#101923;--border:#1f2b38;--text:#e6edf3;--muted:#8fa0b5;--accent:#ff8c00;--green:#00c853;--red:#ff5252;--yellow:#ffca28;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;letter-spacing:-0.01em}
+.mono{font-family:'IBM Plex Mono',monospace}
+.panel{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border)}
+.metric{font-size:clamp(24px,5vw,42px);font-weight:700;letter-spacing:-0.04em;line-height:1}
+.badge{display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+input,select{background:#081018;border:1px solid var(--border);color:var(--text);min-height:44px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:#91a3b8;white-space:nowrap}
+td{font-size:14px;vertical-align:top}.table-row:hover{background:#131c26}.mobile-card{background:linear-gradient(180deg,#0b1117,#101923);border:1px solid var(--border);border-radius:16px}
+.kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#7f91a8}.kpi-value{font-size:18px;font-weight:700}
+.detail-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.data-tile{background:#081018;border:1px solid var(--border);border-radius:12px;padding:14px}
+.timeline-dot{width:9px;height:9px;border-radius:999px;background:var(--accent);margin-top:7px;flex:none}
+@media(max-width:767px){.desktop-table{display:none}.desktop-actions{display:none}.hero-title{font-size:42px;line-height:.95}.mobile-sticky{position:sticky;top:0;z-index:20;background:rgba(5,7,10,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);margin-left:-16px;margin-right:-16px;padding:12px 16px}.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:768px){.mobile-cards{display:none}.mobile-actions{display:none}}
 </style>
 </head>
-
 <body>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
+<div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-8"></div>
 
+<script>
+const deals = [{"parcel": "PB-100284", "address": "1258 Banyan Rd, Boca Raton, FL", "city": "Boca Raton", "equity": "$485k", "equityNum": 485000, "likelihood": 82, "friction": "Low", "behavior": "Passive / Avoidant", "status": "Upcoming", "alpha": "high", "fav": false, "summary": "Strong equity spread. Stable auction timeline. No bankruptcy history detected. Prime diligence candidate.", "propertyType": "Single Family", "beds": 4, "baths": 3, "sqft": 2860, "lot": "0.31 ac", "yearBuilt": 1998, "estValue": "$1,185,000", "judgment": "$642,300", "taxes": "$11,840", "rent": "$7,150/mo", "ownerType": "Individual", "occupancy": "Likely owner-occupied", "repair": "Light / cosmetic", "liquidity": "High", "flood": "Zone X", "pool": "Yes", "waterfront": "No", "zoning": "Residential", "priorSale": "$725,000 \u00b7 2019", "permit": "Roof replacement \u00b7 2021", "code": "None found", "compPressure": "Medium", "investorCompetition": "High", "alphaScore": 86, "riskScore": 24, "marketScore": 71, "case": "50-2025-CA-003452-XXXA-MB", "plaintiff": "West Coast Servicing, Inc.", "defendant": "Joaquin Ribon", "complaint": "Apr 11, 2025", "fj": "Apr 8, 2026", "fjAmount": "$642,300", "currentSale": "Jun 18, 2026", "saleHistory": [["May 26, 2026", "Canceled", "Plaintiff motion to cancel; workout suspected"], ["Jun 18, 2026", "Upcoming", "Renoticed sale"]], "bk": ["None detected"], "docketSummary": "Standard foreclosure progression with final judgment entered. One plaintiff-side cancellation suggests possible reinstatement or payoff discussions, but no bankruptcy or appeal signals.", "signals": ["High equity spread", "No bankruptcy", "No appeal", "One sale reset", "Plaintiff cancellation history"], "map": "https://www.google.com/maps?q=1258+Banyan+Rd+Boca+Raton+FL&output=embed"}, {"parcel": "PB-100311", "address": "8821 Ocean Crest Dr, Delray Beach, FL", "city": "Delray Beach", "equity": "$42k", "equityNum": 42000, "likelihood": 27, "friction": "Extreme", "behavior": "Procedural Warfare", "status": "Likely Cancel", "alpha": "watch", "fav": false, "summary": "High friction case with thin margin. Multiple continuances, emergency filings, and cancellation risk.", "propertyType": "Single Family", "beds": 3, "baths": 2, "sqft": 1740, "lot": "0.18 ac", "yearBuilt": 1984, "estValue": "$705,000", "judgment": "$636,500", "taxes": "$8,120", "rent": "$4,900/mo", "ownerType": "Individual", "occupancy": "Likely occupied", "repair": "Moderate", "liquidity": "Medium", "flood": "Zone X", "pool": "No", "waterfront": "No", "zoning": "Residential", "priorSale": "$365,000 \u00b7 2015", "permit": "Open electrical permit \u00b7 2024", "code": "Minor open code item", "compPressure": "High", "investorCompetition": "High", "alphaScore": 41, "riskScore": 88, "marketScore": 55, "case": "50-2023-CA-011181-XXXX-MB", "plaintiff": "Wilmington Savings Fund Society FSB", "defendant": "Trephene Brown", "complaint": "Jun 13, 2023", "fj": "Aug 14, 2024", "fjAmount": "$636,500", "currentSale": "May 20, 2026", "saleHistory": [["Sep 23, 2024", "Canceled", "Emergency motion granted"], ["Apr 9, 2025", "Canceled", "Bankruptcy filing"], ["Oct 22, 2025", "Canceled", "Bankruptcy filing"], ["Mar 18, 2026", "Canceled", "Emergency motion granted"], ["May 20, 2026", "Upcoming", "Renoticed sale"]], "bk": ["Apr 8, 2025 \u00b7 Ch. 13 signal", "Oct 21, 2025 \u00b7 repeat bankruptcy signal"], "docketSummary": "Long-running foreclosure with repeated sale resets, emergency motions, and multiple bankruptcy filings. Economics are thin, so procedural risk overwhelms upside.", "signals": ["Multiple bankruptcies", "Repeated canceled sales", "Long case duration", "Thin equity spread", "High postponement risk"], "map": "https://www.google.com/maps?q=8821+Ocean+Crest+Dr+Delray+Beach+FL&output=embed"}, {"parcel": "PB-100441", "address": "221 Palm Ave, Jupiter, FL", "city": "Jupiter", "equity": "$790k", "equityNum": 790000, "likelihood": 71, "friction": "Moderate", "behavior": "Passive / Distressed", "status": "Upcoming", "alpha": "high", "fav": true, "summary": "High-end asset with strong spread and manageable litigation. Worth immediate Tier 1 enrichment.", "propertyType": "Waterfront SFR", "beds": 5, "baths": 4.5, "sqft": 4210, "lot": "0.42 ac", "yearBuilt": 2007, "estValue": "$2,950,000", "judgment": "$1,980,000", "taxes": "$29,400", "rent": "$16,500/mo", "ownerType": "LLC", "occupancy": "Unknown / investor owned", "repair": "Unknown", "liquidity": "Medium-high", "flood": "AE", "pool": "Yes", "waterfront": "Yes", "zoning": "Residential waterfront", "priorSale": "$1,620,000 \u00b7 2018", "permit": "Dock repair \u00b7 2022", "code": "None found", "compPressure": "Medium", "investorCompetition": "Medium", "alphaScore": 91, "riskScore": 46, "marketScore": 78, "case": "50-2025-CA-001116-XXXA-MB", "plaintiff": "US Bank Trust Company NA", "defendant": "DP8484G LLC", "complaint": "Feb 7, 2025", "fj": "Jan 12, 2026", "fjAmount": "$1,980,000", "currentSale": "May 18, 2026", "saleHistory": [["Mar 30, 2026", "Canceled", "Emergency postponement and reset"], ["May 18, 2026", "Upcoming", "Renoticed sale"]], "bk": ["None detected"], "docketSummary": "Contested commercial-style foreclosure with counsel, discovery activity, and one postponement. No bankruptcy. Large apparent spread justifies deeper review despite friction.", "signals": ["Large equity potential", "No bankruptcy", "LLC borrower", "One sale reset", "Waterfront scarcity"], "map": "https://www.google.com/maps?q=221+Palm+Ave+Jupiter+FL&output=embed"}, {"parcel": "PB-100518", "address": "14 Royal Palm Way, West Palm Beach, FL", "city": "West Palm Beach", "equity": "-$18k", "equityNum": -18000, "likelihood": 93, "friction": "Low", "behavior": "Cooperative", "status": "Upcoming", "alpha": "avoid", "fav": false, "summary": "Likely to sell, but weak economics. Clean foreclosure does not compensate for negative spread.", "propertyType": "Townhome", "beds": 2, "baths": 2.5, "sqft": 1320, "lot": "0.04 ac", "yearBuilt": 2001, "estValue": "$455,000", "judgment": "$467,869", "taxes": "$5,700", "rent": "$2,850/mo", "ownerType": "LLC", "occupancy": "Likely tenant occupied", "repair": "Light", "liquidity": "Medium", "flood": "Zone X", "pool": "Community", "waterfront": "No", "zoning": "Residential", "priorSale": "$322,000 \u00b7 2021", "permit": "No major permits", "code": "None found", "compPressure": "High", "investorCompetition": "High", "alphaScore": 18, "riskScore": 21, "marketScore": 64, "case": "50-2025-CA-009085-XXXA-MB", "plaintiff": "Wilmington Savings Fund Society FSB", "defendant": "Trust Financial LLC", "complaint": "Sep 4, 2025", "fj": "Apr 1, 2026", "fjAmount": "$467,869", "currentSale": "May 18, 2026", "saleHistory": [["May 18, 2026", "Upcoming", "First noticed sale"]], "bk": ["None detected"], "docketSummary": "Efficient foreclosure timeline with defaults and final judgment. The problem is not legal risk; the problem is no equity after costs.", "signals": ["High auction likelihood", "Low legal friction", "Negative spread", "No bankruptcy", "Avoid before deep diligence"], "map": "https://www.google.com/maps?q=14+Royal+Palm+Way+West+Palm+Beach+FL&output=embed"}, {"parcel": "PB-100777", "address": "974 Harbor Point Dr, Palm Beach Gardens, FL", "city": "Palm Beach Gardens", "equity": "$1.2m", "equityNum": 1200000, "likelihood": 39, "friction": "High", "behavior": "Refinance Attempt", "status": "Likely Cancel", "alpha": "watch", "fav": true, "summary": "Exceptional equity but likely cancellation risk due to mortgage commitment/refinance signal.", "propertyType": "Luxury SFR", "beds": 6, "baths": 6.5, "sqft": 6125, "lot": "0.61 ac", "yearBuilt": 2016, "estValue": "$4,750,000", "judgment": "$3,210,000", "taxes": "$48,600", "rent": "$24,000/mo", "ownerType": "LLC / investor", "occupancy": "Unknown", "repair": "Unknown / verify", "liquidity": "Medium", "flood": "AE", "pool": "Yes", "waterfront": "Canal", "zoning": "Luxury residential", "priorSale": "$3,150,000 \u00b7 2020", "permit": "Major remodel \u00b7 2021", "code": "None found", "compPressure": "Low-medium", "investorCompetition": "Medium", "alphaScore": 79, "riskScore": 72, "marketScore": 83, "case": "50-2024-CA-009457-XXXA-MB", "plaintiff": "Lamb Capital LLC", "defendant": "1115 Stallion LLC", "complaint": "Oct 2, 2024", "fj": "Aug 12, 2025", "fjAmount": "$3,210,000", "currentSale": "May 21, 2026", "saleHistory": [["Oct 20, 2025", "Canceled", "Bankruptcy suggestion"], ["Feb 5, 2026", "Canceled", "Emergency motion / bankruptcy signal"], ["May 21, 2026", "Upcoming", "Reset after amended judgment"]], "bk": ["Oct 18, 2025 \u00b7 bankruptcy suggestion", "Feb 5, 2026 \u00b7 repeat bankruptcy signal"], "docketSummary": "Large equity opportunity but multiple bankruptcy and refinancing signals imply high cancellation probability. Tier 1 watchlist, not clean execution.", "signals": ["Very large spread", "Repeat bankruptcy signals", "Refinance/closing delay language", "High-value asset", "High cancellation risk"], "map": "https://www.google.com/maps?q=974+Harbor+Point+Dr+Palm+Beach+Gardens+FL&output=embed"}];
+
+function moneyColor(n){if(n<50000)return"text-red-400";if(n<150000)return"text-yellow-300";return"text-green-400"}
+function badgeClass(status, alpha){if(alpha==="avoid")return"bg-red-500/20 text-red-300";if(status.includes("Cancel"))return"bg-yellow-500/20 text-yellow-300";if(status==="Sold")return"bg-blue-500/20 text-blue-300";return"bg-green-500/20 text-green-300"}
+function getDeal(){const id=new URLSearchParams(location.search).get("parcel");return deals.find(d=>d.parcel===id)||null}
+
+function renderList(){
+document.getElementById("app").innerHTML=`
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-5 mb-6 md:mb-10">
-    <div>
-      <div class="mono text-[10px] sm:text-xs tracking-[0.24em] text-orange-400 mb-3">
-        AI DISTRESSED ASSET INTELLIGENCE
-      </div>
-      <h1 class="hero-title text-5xl md:text-6xl font-semibold tracking-tight">
-        Gavel IQ
-      </h1>
-      <p class="text-slate-400 mt-4 max-w-3xl leading-7 text-[14px] sm:text-[15px]">
-        AI-powered foreclosure intelligence ranking distressed properties by equity potential,
-        auction likelihood, legal case friction, defendant behavior, and market competition.
-      </p>
-    </div>
-
-    <div class="desktop-actions flex gap-3">
-      <button onclick="exportSelected()" class="bg-orange-500 hover:bg-orange-400 text-black px-5 py-3 rounded-lg font-semibold text-sm">
-        Export Selected CSV
-      </button>
-      <button onclick="emailSelected()" class="panel px-5 py-3 rounded-lg text-sm">
-        Email Selected
-      </button>
-    </div>
+    <div><div class="mono text-[10px] sm:text-xs tracking-[0.24em] text-orange-400 mb-3">AI DISTRESSED ASSET INTELLIGENCE</div><h1 class="hero-title text-5xl md:text-6xl font-semibold tracking-tight">Gavel IQ</h1><p class="text-slate-400 mt-4 max-w-3xl leading-7 text-[14px] sm:text-[15px]">AI-powered foreclosure intelligence ranking distressed properties by equity potential, auction likelihood, legal case friction, defendant behavior, and market competition.</p></div>
+    <div class="desktop-actions flex gap-3"><button onclick="exportSelected()" class="bg-orange-500 hover:bg-orange-400 text-black px-5 py-3 rounded-lg font-semibold text-sm">Export Selected CSV</button><button onclick="emailSelected()" class="panel px-5 py-3 rounded-lg text-sm">Email Selected</button></div>
   </div>
 
   <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-5 sm:mb-8">
-    <div class="panel rounded-xl p-4 sm:p-5">
-      <div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Upcoming</div>
-      <div class="metric">42</div>
-    </div>
-    <div class="panel rounded-xl p-4 sm:p-5">
-      <div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">High Alpha</div>
-      <div class="metric text-green-400">11</div>
-    </div>
-    <div class="panel rounded-xl p-4 sm:p-5">
-      <div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Likely Cancels</div>
-      <div class="metric text-yellow-300">19</div>
-    </div>
-    <div class="panel rounded-xl p-4 sm:p-5">
-      <div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Avg Spread</div>
-      <div class="metric">$312k</div>
-    </div>
-    <div class="panel rounded-xl p-4 sm:p-5 col-span-2 lg:col-span-1">
-      <div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Competition</div>
-      <div class="metric text-red-400">HIGH</div>
-    </div>
+    <div class="panel rounded-xl p-4 sm:p-5"><div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Upcoming</div><div class="metric">42</div></div>
+    <div class="panel rounded-xl p-4 sm:p-5"><div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">High Alpha</div><div class="metric text-green-400">11</div></div>
+    <div class="panel rounded-xl p-4 sm:p-5"><div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Likely Cancels</div><div class="metric text-yellow-300">19</div></div>
+    <div class="panel rounded-xl p-4 sm:p-5"><div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Avg Spread</div><div class="metric">$312k</div></div>
+    <div class="panel rounded-xl p-4 sm:p-5 col-span-2 lg:col-span-1"><div class="text-[10px] uppercase tracking-[0.12em] text-slate-500 mb-3">Competition</div><div class="metric text-red-400">HIGH</div></div>
   </div>
 
   <div class="mobile-sticky md:hidden mb-4">
-    <div class="grid grid-cols-2 gap-2 mb-2">
-      <button onclick="exportSelected()" class="bg-orange-500 text-black rounded-lg font-semibold text-sm py-3">
-        Export CSV
-      </button>
-      <button onclick="emailSelected()" class="panel rounded-lg text-sm py-3">
-        Email
-      </button>
-    </div>
-    <input id="mobileSearch" oninput="filterRows()" class="w-full px-3 py-3 rounded-lg text-sm mb-2" placeholder="Search parcels..." />
-    <div class="grid grid-cols-2 gap-2">
-      <select id="mobileStatus" onchange="filterRows()" class="px-3 py-3 rounded-lg text-sm">
-        <option value="upcoming">Upcoming Only</option>
-        <option value="all">All Cases</option>
-        <option value="sold">Sold</option>
-        <option value="canceled">Canceled</option>
-      </select>
-      <select id="mobileAlpha" onchange="filterRows()" class="px-3 py-3 rounded-lg text-sm">
-        <option value="all">All Alpha</option>
-        <option value="high">High Alpha</option>
-        <option value="watch">Watchlist</option>
-        <option value="avoid">Avoid</option>
-      </select>
-    </div>
+    <div class="grid grid-cols-2 gap-2 mb-2"><button onclick="exportSelected()" class="bg-orange-500 text-black rounded-lg font-semibold text-sm py-3">Export CSV</button><button onclick="emailSelected()" class="panel rounded-lg text-sm py-3">Email</button></div>
+    <input id="mobileSearch" oninput="renderRows()" class="w-full px-3 py-3 rounded-lg text-sm mb-2" placeholder="Search parcels..." />
+    <div class="grid grid-cols-2 gap-2"><select id="mobileStatus" onchange="renderRows()" class="px-3 py-3 rounded-lg text-sm"><option value="upcoming">Upcoming Only</option><option value="all">All Cases</option><option value="sold">Sold</option><option value="canceled">Canceled</option></select><select id="mobileAlpha" onchange="renderRows()" class="px-3 py-3 rounded-lg text-sm"><option value="all">All Alpha</option><option value="high">High Alpha</option><option value="watch">Watchlist</option><option value="avoid">Avoid</option></select></div>
   </div>
 
-  <div class="panel rounded-xl p-4 mb-6 hidden md:block">
-    <div class="flex flex-wrap gap-3">
-      <input id="desktopSearch" oninput="filterRows()" class="px-4 py-3 rounded-lg flex-1 min-w-[260px]"
-        placeholder="Search address, parcel ID, defendant, lender..." />
-      <select id="desktopStatus" onchange="filterRows()" class="px-4 py-3 rounded-lg">
-        <option value="upcoming">Upcoming Only</option>
-        <option value="all">All Cases</option>
-        <option value="sold">Sold</option>
-        <option value="canceled">Canceled</option>
-      </select>
-      <select id="desktopAlpha" onchange="filterRows()" class="px-4 py-3 rounded-lg">
-        <option value="all">All Opportunities</option>
-        <option value="high">High Alpha</option>
-        <option value="watch">Watchlist</option>
-        <option value="avoid">Avoid</option>
-      </select>
-      <button onclick="filterRows()" class="bg-orange-500 hover:bg-orange-400 text-black px-5 py-3 rounded-lg font-semibold">
-        Apply Filters
-      </button>
-    </div>
-  </div>
+  <div class="panel rounded-xl p-4 mb-6 hidden md:block"><div class="flex flex-wrap gap-3"><input id="desktopSearch" oninput="renderRows()" class="px-4 py-3 rounded-lg flex-1 min-w-[260px]" placeholder="Search address, parcel ID, defendant, lender..." /><select id="desktopStatus" onchange="renderRows()" class="px-4 py-3 rounded-lg"><option value="upcoming">Upcoming Only</option><option value="all">All Cases</option><option value="sold">Sold</option><option value="canceled">Canceled</option></select><select id="desktopAlpha" onchange="renderRows()" class="px-4 py-3 rounded-lg"><option value="all">All Opportunities</option><option value="high">High Alpha</option><option value="watch">Watchlist</option><option value="avoid">Avoid</option></select><button onclick="renderRows()" class="bg-orange-500 hover:bg-orange-400 text-black px-5 py-3 rounded-lg font-semibold">Apply Filters</button></div></div>
 
-  <div class="desktop-table overflow-x-auto rounded-xl border border-[#1f2b38]">
-    <table class="w-full min-w-[1120px] border-collapse">
-      <thead class="bg-[#0b1117]">
-        <tr>
-          <th class="p-4 text-left"><input id="selectAll" type="checkbox" onchange="toggleAll(this)"></th>
-          <th class="p-4 text-left">Parcel</th>
-          <th class="p-4 text-left">Address</th>
-          <th class="p-4 text-left">Equity</th>
-          <th class="p-4 text-left">Auction Likelihood</th>
-          <th class="p-4 text-left">Legal Case Friction</th>
-          <th class="p-4 text-left">Defendant Behavior</th>
-          <th class="p-4 text-left">Status</th>
-          <th class="p-4 text-left">AI Summary</th>
-          <th class="p-4 text-left">★</th>
-        </tr>
-      </thead>
-      <tbody id="desktopBody"></tbody>
-    </table>
-  </div>
-
-  <div id="mobileCards" class="mobile-cards space-y-3"></div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mt-8">
-    <div class="panel rounded-xl p-5 sm:p-6">
-      <div class="mono text-[10px] sm:text-xs tracking-[0.18em] text-orange-400 mb-4">AI SIGNAL DETECTION</div>
-      <ul class="space-y-3 text-slate-300 text-sm sm:text-[15px] leading-7">
-        <li>• Bankruptcy and auction cancellation probability</li>
-        <li>• Defendant behavior and equity destruction patterns</li>
-        <li>• Legal case friction and procedural instability</li>
-        <li>• Historical foreclosure outcome modeling</li>
-        <li>• Investor competition and market overheating</li>
-      </ul>
-    </div>
-    <div class="panel rounded-xl p-5 sm:p-6">
-      <div class="mono text-[10px] sm:text-xs tracking-[0.18em] text-orange-400 mb-4">INVESTOR WORKFLOW</div>
-      <ul class="space-y-3 text-slate-300 text-sm sm:text-[15px] leading-7">
-        <li>• Eliminate dead deals instantly</li>
-        <li>• Prioritize highest-alpha opportunities</li>
-        <li>• Predict postponements and cancellations</li>
-        <li>• Track distressed parcel intelligence over time</li>
-        <li>• Export and monitor institutional watchlists</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<script>
-const deals = [
-  {parcel:"PB-100284", address:"1258 Banyan Rd, Boca Raton", equity:"$485k", equityNum:485000, likelihood:82, friction:"Low", behavior:"Passive / Avoidant", status:"Upcoming", alpha:"high", summary:"Strong equity spread. Stable auction timeline. No bankruptcy history detected.", fav:false},
-  {parcel:"PB-100311", address:"8821 Ocean Crest Dr, Delray Beach", equity:"$42k", equityNum:42000, likelihood:27, friction:"Extreme", behavior:"Procedural Warfare", status:"Likely Cancel", alpha:"watch", summary:"Multiple continuances, emergency motions, and thin-margin economics.", fav:false},
-  {parcel:"PB-100441", address:"221 Palm Ave, Jupiter", equity:"$790k", equityNum:790000, likelihood:71, friction:"Moderate", behavior:"Passive / Distressed", status:"Upcoming", alpha:"high", summary:"High-end asset with strong spread and limited litigation activity.", fav:true},
-  {parcel:"PB-100518", address:"14 Royal Palm Way, West Palm Beach", equity:"-$18k", equityNum:-18000, likelihood:93, friction:"Low", behavior:"Cooperative", status:"Upcoming", alpha:"avoid", summary:"Likely to sell but economics weak after taxes, fees, and investor competition.", fav:false},
-  {parcel:"PB-100602", address:"5305 Cleveland Rd, Delray Beach", equity:"-$12k", equityNum:-12000, likelihood:84, friction:"Low", behavior:"Disorganized", status:"Upcoming", alpha:"avoid", summary:"Clean docket but no spread. Should be rejected before deep review.", fav:false},
-  {parcel:"PB-100777", address:"974 Harbor Point Dr, Palm Beach Gardens", equity:"$1.2m", equityNum:1200000, likelihood:39, friction:"High", behavior:"Refinance Attempt", status:"Likely Cancel", alpha:"watch", summary:"Exceptional equity, but mortgage commitment and emergency motion imply high cancellation risk.", fav:true},
-  {parcel:"PB-100903", address:"411 NE 7th St, Boca Raton", equity:"$268k", equityNum:268000, likelihood:88, friction:"Low", behavior:"Passive", status:"Upcoming", alpha:"high", summary:"Boring docket, strong spread, high sale confidence. Prime diligence candidate.", fav:false},
-  {parcel:"PB-101044", address:"69 Island Trail, Wellington", equity:"$95k", equityNum:95000, likelihood:22, friction:"Extreme", behavior:"Serial Bankruptcy", status:"Canceled", alpha:"avoid", summary:"Repeated bankruptcy filings and thin economics. Not worth investor attention.", fav:false}
-];
-
-function badgeClass(status, alpha){
-  if(alpha === "avoid") return "bg-red-500/20 text-red-300";
-  if(status.includes("Cancel")) return "bg-yellow-500/20 text-yellow-300";
-  if(status === "Sold") return "bg-blue-500/20 text-blue-300";
-  return "bg-green-500/20 text-green-300";
-}
-
-function equityColor(n){
-  if(n < 50000) return "text-red-400";
-  if(n < 150000) return "text-yellow-300";
-  return "text-green-400";
+  <div class="desktop-table overflow-x-auto rounded-xl border border-[#1f2b38]"><table class="w-full min-w-[1120px] border-collapse"><thead class="bg-[#0b1117]"><tr><th class="p-4 text-left"><input id="selectAll" type="checkbox" onchange="toggleAll(this)"></th><th class="p-4 text-left">Parcel</th><th class="p-4 text-left">Address</th><th class="p-4 text-left">Equity</th><th class="p-4 text-left">Auction Likelihood</th><th class="p-4 text-left">Legal Case Friction</th><th class="p-4 text-left">Defendant Behavior</th><th class="p-4 text-left">Status</th><th class="p-4 text-left">AI Summary</th><th class="p-4 text-left">★</th></tr></thead><tbody id="desktopBody"></tbody></table></div>
+  <div id="mobileCards" class="mobile-cards space-y-3"></div>`;
+renderRows();
 }
 
 function filteredDeals(){
-  const search = (document.getElementById("desktopSearch")?.value || document.getElementById("mobileSearch")?.value || "").toLowerCase();
-  const status = document.getElementById("desktopStatus")?.value || document.getElementById("mobileStatus")?.value || "upcoming";
-  const alpha = document.getElementById("desktopAlpha")?.value || document.getElementById("mobileAlpha")?.value || "all";
-
-  return deals.filter(d => {
-    const textMatch = `${d.parcel} ${d.address} ${d.behavior} ${d.summary}`.toLowerCase().includes(search);
-    const statusMatch =
-      status === "all" ||
-      (status === "upcoming" && d.status === "Upcoming") ||
-      (status === "canceled" && d.status.includes("Cancel")) ||
-      (status === "sold" && d.status === "Sold");
-    const alphaMatch = alpha === "all" || d.alpha === alpha;
-    return textMatch && statusMatch && alphaMatch;
-  });
+ const search=(document.getElementById("desktopSearch")?.value||document.getElementById("mobileSearch")?.value||"").toLowerCase();
+ const status=document.getElementById("desktopStatus")?.value||document.getElementById("mobileStatus")?.value||"upcoming";
+ const alpha=document.getElementById("desktopAlpha")?.value||document.getElementById("mobileAlpha")?.value||"all";
+ return deals.filter(d=>`${d.parcel} ${d.address} ${d.behavior} ${d.summary}`.toLowerCase().includes(search)&&
+ (status==="all"||(status==="upcoming"&&d.status==="Upcoming")||(status==="canceled"&&d.status.includes("Cancel"))||(status==="sold"&&d.status==="Sold"))&&
+ (alpha==="all"||d.alpha===alpha));
 }
 
-function render(){
-  const rows = filteredDeals();
-  const desktop = document.getElementById("desktopBody");
-  const mobile = document.getElementById("mobileCards");
-
-  desktop.innerHTML = rows.map((d,i)=>`
-    <tr class="table-row border-t border-[#1f2b38]">
-      <td class="p-4"><input class="rowCheck" type="checkbox" data-parcel="${d.parcel}"></td>
-      <td class="p-4 mono text-orange-400">${d.parcel}</td>
-      <td class="p-4 font-medium">${d.address}</td>
-      <td class="p-4 font-semibold ${equityColor(d.equityNum)}">${d.equity}</td>
-      <td class="p-4">${d.likelihood}%</td>
-      <td class="p-4">${d.friction}</td>
-      <td class="p-4">${d.behavior}</td>
-      <td class="p-4"><span class="badge ${badgeClass(d.status,d.alpha)}">${d.status}</span></td>
-      <td class="p-4 text-slate-400 max-w-md">${d.summary}</td>
-      <td class="p-4 text-yellow-300 text-lg cursor-pointer" onclick="toggleFav('${d.parcel}')">${d.fav ? "★":"☆"}</td>
-    </tr>
-  `).join("");
-
-  mobile.innerHTML = rows.map((d,i)=>`
-    <div class="mobile-card p-4">
-      <div class="flex items-start justify-between gap-3 mb-3">
-        <div>
-          <div class="mono text-orange-400 text-xs mb-1">${d.parcel}</div>
-          <div class="font-semibold text-[16px] leading-tight">${d.address}</div>
-        </div>
-        <div class="flex items-center gap-3">
-          <input class="rowCheck" type="checkbox" data-parcel="${d.parcel}">
-          <button onclick="toggleFav('${d.parcel}')" class="text-yellow-300 text-xl">${d.fav ? "★":"☆"}</button>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-3 mb-4">
-        <div>
-          <div class="kpi-label">Equity</div>
-          <div class="kpi-value ${equityColor(d.equityNum)}">${d.equity}</div>
-        </div>
-        <div>
-          <div class="kpi-label">Auction Likelihood</div>
-          <div class="kpi-value">${d.likelihood}%</div>
-        </div>
-        <div>
-          <div class="kpi-label">Legal Case Friction</div>
-          <div class="kpi-value text-[15px]">${d.friction}</div>
-        </div>
-        <div>
-          <div class="kpi-label">Defendant Behavior</div>
-          <div class="kpi-value text-[15px]">${d.behavior}</div>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between mb-3">
-        <span class="badge ${badgeClass(d.status,d.alpha)}">${d.status}</span>
-        <span class="mono text-xs text-slate-500">${d.alpha.toUpperCase()}</span>
-      </div>
-
-      <div class="text-slate-400 text-sm leading-6">${d.summary}</div>
-    </div>
-  `).join("");
+function renderRows(){
+ const rows=filteredDeals(); const desktop=document.getElementById("desktopBody"); const mobile=document.getElementById("mobileCards");
+ desktop.innerHTML=rows.map(d=>`<tr onclick="openDeal('${d.parcel}')" class="table-row border-t border-[#1f2b38] cursor-pointer"><td onclick="event.stopPropagation()" class="p-4"><input class="rowCheck" type="checkbox" data-parcel="${d.parcel}"></td><td class="p-4 mono text-orange-400">${d.parcel}</td><td class="p-4 font-medium">${d.address}</td><td class="p-4 font-semibold ${moneyColor(d.equityNum)}">${d.equity}</td><td class="p-4">${d.likelihood}%</td><td class="p-4">${d.friction}</td><td class="p-4">${d.behavior}</td><td class="p-4"><span class="badge ${badgeClass(d.status,d.alpha)}">${d.status}</span></td><td class="p-4 text-slate-400 max-w-md">${d.summary}</td><td onclick="event.stopPropagation();toggleFav('${d.parcel}')" class="p-4 text-yellow-300 text-lg cursor-pointer">${d.fav?"★":"☆"}</td></tr>`).join("");
+ mobile.innerHTML=rows.map(d=>`<div onclick="openDeal('${d.parcel}')" class="mobile-card p-4 cursor-pointer"><div class="flex items-start justify-between gap-3 mb-3"><div><div class="mono text-orange-400 text-xs mb-1">${d.parcel}</div><div class="font-semibold text-[16px] leading-tight">${d.address}</div></div><div onclick="event.stopPropagation()" class="flex items-center gap-3"><input class="rowCheck" type="checkbox" data-parcel="${d.parcel}"><button onclick="toggleFav('${d.parcel}')" class="text-yellow-300 text-xl">${d.fav?"★":"☆"}</button></div></div><div class="grid grid-cols-2 gap-3 mb-4"><div><div class="kpi-label">Equity</div><div class="kpi-value ${moneyColor(d.equityNum)}">${d.equity}</div></div><div><div class="kpi-label">Auction Likelihood</div><div class="kpi-value">${d.likelihood}%</div></div><div><div class="kpi-label">Legal Case Friction</div><div class="kpi-value text-[15px]">${d.friction}</div></div><div><div class="kpi-label">Defendant Behavior</div><div class="kpi-value text-[15px]">${d.behavior}</div></div></div><div class="flex items-center justify-between mb-3"><span class="badge ${badgeClass(d.status,d.alpha)}">${d.status}</span><span class="mono text-xs text-slate-500">${d.alpha.toUpperCase()}</span></div><div class="text-slate-400 text-sm leading-6">${d.summary}</div></div>`).join("");
 }
 
-function filterRows(){ render(); }
+function openDeal(parcel){ location.href=`?parcel=${parcel}`; }
 
-function toggleFav(parcel){
-  const d = deals.find(x=>x.parcel===parcel);
-  if(d) d.fav = !d.fav;
-  render();
+function renderDetail(d){
+document.getElementById("app").innerHTML=`
+<button onclick="location.href=location.pathname" class="mb-5 text-sm text-orange-400 hover:text-orange-300 mono">← BACK TO DASHBOARD</button>
+
+<div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+ <div>
+  <div class="mono text-[11px] tracking-[0.24em] text-orange-400 mb-3">PARCEL INTELLIGENCE FILE</div>
+  <h1 class="text-3xl md:text-5xl font-semibold tracking-tight">${d.address}</h1>
+  <div class="mt-3 flex flex-wrap gap-2"><span class="badge ${badgeClass(d.status,d.alpha)}">${d.status}</span><span class="badge bg-slate-700/60 text-slate-300">${d.parcel}</span><span class="badge bg-orange-500/20 text-orange-300">${d.case}</span></div>
+ </div>
+ <div class="panel rounded-xl p-4 min-w-[260px]"><div class="kpi-label mb-2">AI Investment View</div><div class="text-2xl font-semibold ${d.alphaScore>75?'text-green-400':d.alphaScore>45?'text-yellow-300':'text-red-400'}">${d.alphaScore}/100 Alpha Score</div><p class="text-slate-400 text-sm mt-2">${d.summary}</p></div>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+ <div class="panel rounded-xl p-4"><div class="kpi-label">Estimated Value</div><div class="metric text-[30px]">${d.estValue}</div></div>
+ <div class="panel rounded-xl p-4"><div class="kpi-label">Judgment</div><div class="metric text-[30px]">${d.judgment}</div></div>
+ <div class="panel rounded-xl p-4"><div class="kpi-label">Equity Potential</div><div class="metric text-[30px] ${moneyColor(d.equityNum)}">${d.equity}</div></div>
+ <div class="panel rounded-xl p-4"><div class="kpi-label">Auction Likelihood</div><div class="metric text-[30px]">${d.likelihood}%</div></div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-6">
+ <div class="panel rounded-xl p-5">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-4">25-P0INT PARCEL ENRICHMENT</div>
+  <div class="detail-grid">
+   ${[
+    ["Property Type",d.propertyType],["Beds / Baths",`${d.beds} / ${d.baths}`],["Sq Ft",d.sqft.toLocaleString()],["Lot",d.lot],["Year Built",d.yearBuilt],
+    ["Taxes",d.taxes],["Rent Estimate",d.rent],["Owner Type",d.ownerType],["Occupancy",d.occupancy],["Repair Level",d.repair],
+    ["Liquidity",d.liquidity],["Flood Zone",d.flood],["Pool",d.pool],["Waterfront",d.waterfront],["Zoning",d.zoning],
+    ["Prior Sale",d.priorSale],["Permit Signal",d.permit],["Code Issues",d.code],["Competition",d.compPressure],["Investor Competition",d.investorCompetition],
+    ["Legal Case Friction",d.friction],["Defendant Behavior",d.behavior],["Risk Score",d.riskScore+"/100"],["Market Score",d.marketScore+"/100"],["Current Sale",d.currentSale]
+   ].map(x=>`<div class="data-tile"><div class="kpi-label">${x[0]}</div><div class="font-semibold mt-1 text-sm">${x[1]}</div></div>`).join("")}
+  </div>
+ </div>
+ <div class="panel rounded-xl p-4">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-3">MAP</div>
+  <iframe width="100%" height="220" style="border:0;border-radius:12px;filter:grayscale(.15) invert(.88) hue-rotate(175deg);" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${d.map}"></iframe>
+ </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+ <div class="panel rounded-xl p-5">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-4">COURT DOCKET SUMMARY</div>
+  <div class="grid grid-cols-2 gap-3 mb-5">
+    <div class="data-tile"><div class="kpi-label">Complaint Date</div><div class="font-semibold mt-1">${d.complaint}</div></div>
+    <div class="data-tile"><div class="kpi-label">Final Judgment Date</div><div class="font-semibold mt-1">${d.fj}</div></div>
+    <div class="data-tile"><div class="kpi-label">FJ Amount</div><div class="font-semibold mt-1">${d.fjAmount}</div></div>
+    <div class="data-tile"><div class="kpi-label">Plaintiff</div><div class="font-semibold mt-1">${d.plaintiff}</div></div>
+  </div>
+  <p class="text-slate-300 leading-7">${d.docketSummary}</p>
+ </div>
+
+ <div class="panel rounded-xl p-5">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-4">AI SIGNALS</div>
+  <div class="space-y-3">${d.signals.map(s=>`<div class="flex items-center gap-3 p-3 rounded-lg bg-[#081018] border border-[#1f2b38]"><div class="w-2 h-2 rounded-full bg-orange-400"></div><div class="text-sm">${s}</div></div>`).join("")}</div>
+ </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+ <div class="panel rounded-xl p-5">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-4">SALE TIMELINE</div>
+  <div class="space-y-4">${d.saleHistory.map(s=>`<div class="flex gap-3"><div class="timeline-dot"></div><div><div class="font-semibold">${s[0]} · ${s[1]}</div><div class="text-slate-400 text-sm mt-1">${s[2]}</div></div></div>`).join("")}</div>
+ </div>
+
+ <div class="panel rounded-xl p-5">
+  <div class="mono text-xs tracking-[0.18em] text-orange-400 mb-4">BANKRUPTCY / STAY SIGNALS</div>
+  <div class="space-y-3">${d.bk.map(b=>`<div class="data-tile"><div class="font-semibold text-sm">${b}</div></div>`).join("")}</div>
+  <div class="mt-5 pt-5 border-t border-[#1f2b38]">
+    <div class="kpi-label">Defendant</div><div class="font-semibold mt-1">${d.defendant}</div>
+  </div>
+ </div>
+</div>
+`;
 }
 
-function toggleAll(el){
-  document.querySelectorAll(".rowCheck").forEach(c=>c.checked = el.checked);
-}
-
-function selectedParcels(){
-  return [...document.querySelectorAll(".rowCheck:checked")].map(c=>c.dataset.parcel);
-}
-
-function exportSelected(){
-  const selected = selectedParcels();
-  const rows = deals.filter(d => selected.includes(d.parcel));
-  if(!rows.length){ alert("Select at least one listing first."); return; }
-  const header = ["parcel","address","equity","auction_likelihood","legal_case_friction","defendant_behavior","status","summary"];
-  const csv = [header.join(",")].concat(rows.map(d => header.map(h => `"${String(
-    h==="auction_likelihood" ? d.likelihood :
-    h==="legal_case_friction" ? d.friction :
-    h==="defendant_behavior" ? d.behavior :
-    d[h] ?? ""
-  ).replaceAll('"','""')}"`).join(","))).join("\\n");
-  const blob = new Blob([csv], {type:"text/csv"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "gavel-iq-selected.csv";
-  a.click();
-}
-
-function emailSelected(){
-  const selected = selectedParcels();
-  if(!selected.length){ alert("Select at least one listing first."); return; }
-  const subject = encodeURIComponent("Selected Gavel IQ foreclosure opportunities");
-  const body = encodeURIComponent("Selected parcels:\\n\\n" + selected.join("\\n"));
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
-}
-
-render();
+function toggleFav(parcel){const d=deals.find(x=>x.parcel===parcel);if(d)d.fav=!d.fav;renderRows()}
+function toggleAll(el){document.querySelectorAll(".rowCheck").forEach(c=>c.checked=el.checked)}
+function selectedParcels(){return[...document.querySelectorAll(".rowCheck:checked")].map(c=>c.dataset.parcel)}
+function exportSelected(){const selected=selectedParcels();if(!selected.length){alert("Select at least one listing first.");return}const rows=deals.filter(d=>selected.includes(d.parcel));const header=["parcel","address","equity","likelihood","friction","behavior","status","summary"];const csv=[header.join(",")].concat(rows.map(d=>header.map(h=>`"${String(d[h]??"").replaceAll('"','""')}"`).join(","))).join("\n");const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="gavel-iq-selected.csv";a.click()}
+function emailSelected(){const selected=selectedParcels();if(!selected.length){alert("Select at least one listing first.");return}location.href=`mailto:?subject=${encodeURIComponent("Selected Gavel IQ opportunities")}&body=${encodeURIComponent(selected.join("\\n"))}`}
+const detail=getDeal(); if(detail) renderDetail(detail); else renderList();
 </script>
-
 </body>
 </html>
