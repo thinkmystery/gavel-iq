@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Gavel IQ — Distressed Asset Intelligence</title><style>
+<html><head><meta charset="UTF-8"><title>Gavel IQ — Dashboard</title><style>
 :root{
   --bg:#05070a;--panel:#0b1118;--panel2:#101923;--panel3:#071018;--line:#263545;
   --line2:#34495f;--text:#d7e2ee;--muted:#7f94aa;--amber:#ffb020;--green:#18d17f;
@@ -98,8 +98,8 @@ td a{color:var(--blue);font-weight:800}
 <div class="topbar">
   <a class="brand" href="index.html"><span class="mark">GIQ</span><span>GAVEL IQ TERMINAL</span></a>
   <div class="nav">
-    <a href="index.html" class="active">Sales</a>
-    <a href="dashboard.html" class="">Dashboard</a>
+    <a href="index.html" class="">Sales</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
     <a href="modules.html#parceliq" class="">ParcelIQ</a>
     <a href="modules.html#bidderiq" class="">BidderIQ</a>
     <a href="modules.html#plaintiffiq" class="">PlaintiffIQ</a>
@@ -110,59 +110,87 @@ td a{color:var(--blue);font-weight:800}
   <div class="status"><span>PB COUNTY</span><span><b>LIVE MOCK</b></span><span>2026-05-11 08:30</span></div>
 </div>
 
-<div class="wrap">
-  <section class="hero">
+<div class="wrap layout">
+  <aside class="sidebar panel pad">
+    <div class="side-title">Terminal Functions</div>
+    <a class="side-link" href="modules.html#parceliq"><span>PARCELIQ</span><b>47</b></a>
+    <a class="side-link" href="modules.html#bidderiq"><span>BIDDERIQ</span><b>214</b></a>
+    <a class="side-link" href="modules.html#plaintiffiq"><span>PLAINTIFFIQ</span><b>62</b></a>
+    <a class="side-link" href="modules.html#lawfirmiq"><span>LAWFIRMIQ</span><b>18</b></a>
+    <a class="side-link" href="modules.html#marketiq"><span>MARKETIQ</span><b>74</b></a>
+    <a class="side-link" href="modules.html#predictiveiq"><span>PREDICTIVEIQ</span><b>LIVE</b></a>
+    <div class="side-title">Watchlists</div>
+    <a class="side-link" href="modules.html#px1042"><span>Boca Condos</span><b>9</b></a>
+    <a class="side-link" href="modules.html#bidder-atlantic"><span>Atlantic Ridge</span><b>17</b></a>
+    <a class="side-link" href="modules.html#plaintiff-usbank"><span>US Bank Trustee</span><b>312</b></a>
+  </aside>
+  <main>
     <div class="panel pad">
-      <div class="kicker">Palm Beach County first · Florida judicial markets next</div>
-      <h1>The intelligence layer for judicial foreclosure markets.</h1>
-      <p class="big-copy">Gavel IQ turns court dockets, auction outcomes, bidder sheets, parcels, plaintiffs, and law firm behavior into a searchable market terminal for distressed asset operators.</p>
-      <div class="row">
-        <a class="btn primary" href="dashboard.html">Open Terminal Demo</a>
-        <a class="btn" href="#pricing">View Pricing</a>
-      </div>
+      <div class="kicker">Intelligence Command Center · DEMO DATA</div>
+      <h1 style="font-size:34px">Palm Beach foreclosure market monitor</h1>
+      <p>Data snapshot: Palm Beach County · Updated May 11, 2026 · 8:30 AM</p>
       <div class="metric-grid">
-        <div class="metric"><div class="num">5Y</div><div class="lbl">Historical case spine</div></div>
-        <div class="metric"><div class="num">214</div><div class="lbl">Active repeat bidders</div></div>
         <div class="metric"><div class="num">47</div><div class="lbl">Tier-1 opportunities</div></div>
-        <div class="metric"><div class="num">74</div><div class="lbl">Market heat index</div></div>
+        <div class="metric"><div class="num">126</div><div class="lbl">Sales scheduled 30D</div></div>
+        <div class="metric"><div class="num red">38</div><div class="lbl">High cancellation risk</div></div>
+        <div class="metric"><div class="num">214</div><div class="lbl">Active repeat bidders</div></div>
       </div>
     </div>
-    <div class="terminal-screen">
-      <div class="screen-head"><span>GIQ://PB/COMMAND</span><span>DEMO DATA</span></div>
-      <div class="cmdline">&gt; LOAD <span>PB_FORECLOSURE_MARKET_GRAPH</span></div>
-      <div class="tape">
-        <div><b>126</b><em>Sales next 30 days</em></div><div><b>38</b><em>High cancel risk</em></div><div><b>12</b><em>Push-to-sale plaintiffs</em></div>
-        <div><b>29%</b><em>Late reset rate</em></div><div><b>36%</b><em>Third-party buyer rate</em></div><div><b>18%</b><em>Delray heat change</em></div>
+
+    <section class="section main-grid">
+      <div class="panel pad span4">
+        <h2>Tier-1 Opportunity Tape</h2>
+        <div class="table-wrap"><table>
+          <tr><th>Auction</th><th>Parcel / Address</th><th>Stage</th><th>Equity</th><th>Cancel %</th><th>Competition</th><th>Gavel</th><th>Action</th></tr>
+          <tr><td>05/21</td><td><a href="modules.html#px1042">PX-1042 · 123 Ocean Ave, Boca</a></td><td>Sale Set</td><td>$412k</td><td class="green">18%</td><td>High</td><td class="score">92</td><td class="green">Full diligence</td></tr>
+          <tr><td>05/23</td><td><a href="modules.html#px1188">PX-1188 · 55 Palm Way, Delray</a></td><td>Sale Set</td><td>$188k</td><td class="red">74%</td><td>Low</td><td class="score">41</td><td class="red">Likely cancel</td></tr>
+          <tr><td>05/28</td><td><a href="modules.html#px1310">PX-1310 · 801 Lake Dr, Lake Worth</a></td><td>Final Judgment</td><td>$236k</td><td class="amber">36%</td><td>Medium</td><td class="score">78</td><td>Watch closely</td></tr>
+          <tr><td>06/02</td><td><a href="modules.html#px1451">PX-1451 · 19 Royal Palm Ct</a></td><td>Sale Set</td><td>$529k</td><td class="green">22%</td><td>Very High</td><td class="score">86</td><td class="amber">High competition</td></tr>
+          <tr><td>06/04</td><td><a href="modules.html#px1502">PX-1502 · 404 Federal Hwy</a></td><td>Sale Set</td><td>$91k</td><td class="amber">48%</td><td>Low</td><td class="score">59</td><td>Skip unless price breaks</td></tr>
+          <tr><td>06/06</td><td><a href="modules.html#px1667">PX-1667 · 700 A1A S</a></td><td>Bankruptcy flag</td><td>$304k</td><td class="red">81%</td><td>Medium</td><td class="score">33</td><td class="red">Likely cancel</td></tr>
+        </table></div>
       </div>
-      <div class="cmdline">&gt; ALERTS --HIGH_ALPHA</div>
-      <p><span class="amber">PX-1042</span> Boca condo equity spread widened to $412k; repeat bidder cluster detected.</p>
-      <p><span class="red">PX-1188</span> Sale likely to cancel: same plaintiff/firm pattern matched 73 prior cancellations.</p>
-      <p><span class="green">BID-ATL-RIDGE</span> New LLC alias linked by email and registered agent.</p>
-      <div class="cmdline">&gt; OPEN <span><a href="dashboard.html">DASHBOARD</a></span></div>
+
+      <div class="panel pad span2">
+        <h2>Market Heat</h2>
+        <div class="bars">
+          <div class="barrow"><span>Boca</span><div class="bar"><i style="width:86%"></i></div><b>86</b></div>
+          <div class="barrow"><span>Delray</span><div class="bar"><i style="width:78%"></i></div><b>78</b></div>
+          <div class="barrow"><span>Lake Worth</span><div class="bar"><i style="width:63%"></i></div><b>63</b></div>
+          <div class="barrow"><span>WPB</span><div class="bar"><i style="width:58%"></i></div><b>58</b></div>
+          <div class="barrow"><span>Jupiter</span><div class="bar"><i style="width:44%"></i></div><b>44</b></div>
+        </div>
+      </div>
+
+      <div class="panel pad span3">
+        <h2>Bidder Activity</h2>
+        <div class="table-wrap"><table>
+          <tr><th>Bidder</th><th>Segment</th><th>30D Bids</th><th>Wins</th><th>Signal</th></tr>
+          <tr><td><a href="modules.html#bidder-atlantic">Atlantic Ridge Holdings LLC</a></td><td>Boca condos</td><td>14</td><td>3</td><td class="green">Accumulating</td></tr>
+          <tr><td><a href="modules.html#bidder-sabal">Sabal Recovery Partners</a></td><td>SFH inland</td><td>8</td><td>2</td><td>Stable</td></tr>
+          <tr><td><a href="modules.html#bidder-coastal">Coastal Deed Ventures</a></td><td>Delray / WPB</td><td>19</td><td>1</td><td class="amber">Price setter</td></tr>
+        </table></div>
+      </div>
+
+      <div class="panel pad span3">
+        <h2>Plaintiff / Firm Follow-Through</h2>
+        <div class="table-wrap"><table>
+          <tr><th>Plaintiff</th><th>Firm</th><th>Follow</th><th>Late Cancel</th><th>Behavior</th></tr>
+          <tr><td><a href="modules.html#plaintiff-usbank">U.S. Bank N.A. Trustee</a></td><td><a href="modules.html#firm-robertson">Robertson Anschutz</a></td><td>41%</td><td class="red">29%</td><td>Frequent resets</td></tr>
+          <tr><td><a href="modules.html#plaintiff-deutsche">Deutsche Bank Trustee</a></td><td><a href="modules.html#firm-aldridge">Aldridge Pite</a></td><td>56%</td><td>18%</td><td>Moderate push</td></tr>
+          <tr><td><a href="modules.html#plaintiff-hoa">Boca HOA Group</a></td><td><a href="modules.html#firm-padgett">Padgett Law</a></td><td>69%</td><td>11%</td><td class="green">Aggressive</td></tr>
+        </table></div>
+      </div>
+    </section>
+  </main>
+  <aside class="panel pad">
+    <h2>What Changed</h2>
+    <div class="feed">
+      <a class="alert high" href="modules.html#px1188"><strong>PX-1188 cancellation risk +22</strong><span>New docket event matches late reset pattern.</span></a>
+      <a class="alert med" href="modules.html#bidder-atlantic"><strong>Atlantic Ridge new alias</strong><span>Email and RA cluster link 2 new LLCs.</span></a>
+      <a class="alert low" href="modules.html#marketiq"><strong>Delray heat +18%</strong><span>Trailing 30D competition elevated.</span></a>
+      <a class="alert high" href="modules.html#firm-robertson"><strong>Robertson reset activity elevated</strong><span>Five motions to cancel in 14D window.</span></a>
+      <a class="alert med" href="modules.html#px1042"><strong>PX-1042 moved to High Alpha</strong><span>Equity spread widened after comp update.</span></a>
     </div>
-  </section>
-
-  <section class="section module-grid">
-    <a class="panel module-card" href="modules.html#parceliq"><span class="pill live">Live</span><h2>ParcelIQ</h2><p>Tier-1 opportunity scoring by parcel, case stage, equity, sale probability, and docket sequence.</p><ul class="list"><li>Cancellation probability</li><li>Case timeline</li><li>Linked bidders and plaintiff</li></ul></a>
-    <a class="panel module-card" href="modules.html#bidderiq"><span class="pill live">Live</span><h2>BidderIQ</h2><p>Behavioral profiles of bidders, LLC clusters, win rates, segments, and post-auction outcomes.</p><ul class="list"><li>Operator unmasking</li><li>Zip strategy</li><li>Flip velocity</li></ul></a>
-    <a class="panel module-card" href="modules.html#plaintiffiq"><span class="pill live">Live</span><h2>PlaintiffIQ</h2><p>Bank, servicer, trustee, and HOA behavior patterns that drive sale likelihood.</p><ul class="list"><li>Push-to-sale rate</li><li>Late cancellation rate</li><li>Negotiation behavior</li></ul></a>
-    <a class="panel module-card" href="modules.html#lawfirmiq"><span class="pill build">Building</span><h2>LawFirmIQ</h2><p>Foreclosure counsel pacing, reset behavior, docket velocity, and plaintiff relationships.</p><ul class="list"><li>Speed to judgment</li><li>Reset pattern</li><li>Late filing signal</li></ul></a>
-    <a class="panel module-card" href="modules.html#marketiq"><span class="pill live">Live</span><h2>MarketIQ</h2><p>County-level auction volume, hot ZIPs, bidder competition, and third-party sale rates.</p><ul class="list"><li>Heat index</li><li>Zip leaderboard</li><li>Sale conversion</li></ul></a>
-    <a class="panel module-card" href="modules.html#predictiveiq"><span class="pill pred">Predictive Layer</span><h2>PredictiveIQ</h2><p>Forecast cancellation, turnout, competition, bank take-back likelihood, and opportunity quality.</p><ul class="list"><li>Sale-likelihood score</li><li>Bidder turnout estimate</li><li>What changed feed</li></ul></a>
-  </section>
-
-  <section class="section panel pad">
-    <h2>Why this is not a listings product</h2>
-    <div class="graph">
-      <div class="node">Parcel</div><div class="arrow">→</div><div class="node">Case</div><div class="arrow">→</div><div class="node">Plaintiff</div><div class="arrow">→</div><div class="node">Law Firm</div><div class="arrow">→</div><div class="node">Auction</div><div class="arrow">→</div><div class="node">Bidders</div><div class="arrow">→</div><div class="node">Post-Auction Outcome</div>
-    </div>
-    <p style="margin-top:14px">Most foreclosure tools show listings. Gavel IQ shows behavior. Cases that cancel are still training data. The bidder sheet is not an artifact. It is the market map.</p>
-  </section>
-
-  <section class="section price-grid" id="pricing">
-    <div class="panel price-card"><span class="pill live">Beta</span><h2>Palm Beach Intelligence</h2><div class="price">$750<span class="small"> / mo</span></div><ul class="list"><li>Tier-1 parcel list</li><li>Scheduled auction dashboard</li><li>Cancellation probability</li><li>Weekly opportunity report</li></ul></div>
-    <div class="panel price-card"><span class="pill pred">Operator</span><h2>Professional</h2><div class="price">$1,500<span class="small"> / mo</span></div><ul class="list"><li>Everything in Palm Beach Intelligence</li><li>BidderIQ + PlaintiffIQ</li><li>LawFirmIQ</li><li>Watchlists and change alerts</li></ul></div>
-    <div class="panel price-card"><span class="pill build">Data Partner</span><h2>Platinum</h2><div class="price">Custom</div><ul class="list"><li>Historical exports</li><li>API / CSV feeds</li><li>Custom enrichment</li><li>Multi-county roadmap access</li></ul></div>
-  </section>
-  <div class="footer">Gavel IQ · Distressed Asset Intelligence · Palm Beach beta access is intentionally limited while historical data QA and entity resolution are completed.</div>
+  </aside>
 </div></div></body></html>
